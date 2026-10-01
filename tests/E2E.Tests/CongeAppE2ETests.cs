@@ -22,7 +22,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Le_formulaire_de_conge_est_visible()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
 
         await page.GetByRole(AriaRole.Link, new() { Name = "Jean Dupont" }).ClickAsync();
 
@@ -35,7 +35,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Une_demande_de_conge_valide_est_acceptee()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
 
         await FillDatesAsync(page, "2026-10-05", "2026-10-06");
@@ -48,7 +48,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Les_champs_obligatoires_sont_valides()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
 
         await Expect(page.GetByRole(AriaRole.Button, new() { Name = "Poser le congé" })).ToBeDisabledAsync();
@@ -58,7 +58,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Une_date_de_fin_anterieure_a_la_date_de_debut_est_refusee()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
 
         await FillDatesAsync(page, "2026-10-06", "2026-10-05");
@@ -70,7 +70,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Une_duree_de_conge_invalide_est_refusee()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
 
         await FillDatesAsync(page, "2026-10-10", "2026-10-11");
@@ -82,7 +82,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Les_donnees_saisies_sont_conservees_apres_validation()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
         await FillDatesAsync(page, "2026-10-12", "2026-10-13");
         await page.GetByRole(AriaRole.Button, new() { Name = "Poser le congé" }).ClickAsync();
@@ -109,7 +109,7 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
     [Fact]
     public async Task Les_liens_et_boutons_principaux_fonctionnent()
     {
-        await using var page = await AuthenticatedPageAsync();
+        var page = await AuthenticatedPageAsync();
         await OpenUserAsync(page);
 
         await page.GetByRole(AriaRole.Link, new() { Name = "Tous les utilisateurs" }).ClickAsync();
