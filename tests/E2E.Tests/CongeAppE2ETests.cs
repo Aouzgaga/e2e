@@ -99,6 +99,13 @@ public sealed class CongeAppE2ETests(CongeAppBrowserFixture fixture)
         var errors = new List<string>();
         var page = await context.NewPageAsync();
         page.PageError += (_, error) => errors.Add(error);
+        page.Console += (_, message) =>
+        {
+            if (message.Type == "error")
+            {
+                errors.Add(message.Text);
+            }
+        };
 
         await AuthenticateAsync(page);
         await OpenUserAsync(page);
