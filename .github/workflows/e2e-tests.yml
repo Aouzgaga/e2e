@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: dotnet build e2e.slnx --no-restore --configuration Release
 
+      - name: Install Playwright browsers
+        run: pwsh tests/E2E.Tests/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+
       - name: Run e2e tests
         run: dotnet test e2e.slnx --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
 
