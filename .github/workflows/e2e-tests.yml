@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  checks: write
 
 jobs:
   test:
@@ -38,3 +39,11 @@ jobs:
         with:
           name: test-results
           path: "**/test-results.trx"
+
+      - name: Publish test results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: "**/test-results.trx"
+          check_name: E2E test results
+          comment_mode: off
